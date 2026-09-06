@@ -1,26 +1,3 @@
-"""
-ANALIZADOR SEMANTICO
-=====================
-Parte del proyecto: Analizador SQL
-Autor: Jonathan
-
-Este modulo recibe una consulta SQL (ya validada lexica y sintacticamente
-por los modulos de los companeros) y verifica reglas semanticas:
-
- - Que la tabla utilizada exista en el catalogo.
- - Que las columnas utilizadas existan dentro de esa tabla.
- - Que no se intente eliminar/alterar una tabla inexistente.
- - Que no se intente crear una tabla que ya existe.
-
-El catalogo de tablas se guarda en un diccionario en memoria y se puede
-ir actualizando conforme se ejecutan sentencias CREATE / ALTER / DROP,
-simulando una base de datos simple.
-
-Este archivo se puede usar de dos formas:
- 1. Importado desde main.py -> usar la funcion analizar_semantico(consulta)
- 2. Ejecutado directamente -> abre un modo de prueba por consola.
-"""
-
 import re
 
 
