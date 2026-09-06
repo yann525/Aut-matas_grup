@@ -59,14 +59,14 @@ No se puede eliminar la tabla porque no existe.
 CONSULTA SEMANTICAMENTE CORRECTA
 ```
 
-## Como se conecta con el resto del proyecto
-
-Todo vive en `semantic.py` y se expone a traves de una sola funcion:
+## Integracion con main.py
 
 ```python
+from semantic import analizar_semantico
+
 es_valida, errores = analizar_semantico(consulta)
+
+if not es_valida:
+    for error in errores:
+        print(error)
 ```
-
-William solo necesita importar esa funcion en `main.py` y llamarla despues de que la consulta pase por el analisis lexico y sintactico de los demas. Si `es_valida` es `False`, `errores` trae la lista de mensajes listos para mostrarse tal cual en pantalla.
-
-Tambien deje el archivo preparado para probarse solo, sin depender del menu final: si se ejecuta directamente con `python semantic.py`, pide una consulta por consola y muestra el resultado, tal como hicimos con el analizador lexico de Emilio.
