@@ -24,9 +24,7 @@ Cada llave es una tabla y su valor es la lista de columnas que contiene. A parti
 
 Cada una de esas funciones usa `re.search` para sacar el nombre de la tabla (y las columnas, cuando aplica) directamente del texto de la consulta, sin depender de que otro modulo se la entregue ya separada. Esto la hace independiente: se puede probar sola, sin esperar a que el analizador sintactico de mis companeros este terminado.
 
-## Algo que agregue por mi cuenta
-
-El PDF del proyecto solo pedia detectar tablas y columnas inexistentes. Pero note que si el catalogo nunca cambia, sentencias como `CREATE TABLE` o `ALTER TABLE ADD` nunca podrian usarse de verdad. Asi que hice que el catalogo se actualice en memoria:
+sentencias como `CREATE TABLE` o `ALTER TABLE ADD` nunca podrian usarse de verdad. Asi que hice que el catalogo se actualice en memoria:
 
 - `CREATE TABLE` agrega la tabla nueva (y falla si ya existe).
 - `ALTER TABLE ... ADD` agrega una columna nueva a una tabla existente (y falla si la columna ya esta).
