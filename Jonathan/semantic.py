@@ -216,6 +216,20 @@ def analizar_semantico(consulta):
     es_valida = len(errores) == 0
     return es_valida, errores
 
+# --- NUEVAS FUNCIONES DE APOYO PARA MAIN.PY 
+def obtener_tablas_registradas():
+    """Retorna un diccionario con las tablas y sus columnas actuales."""
+    return catalogo
+
+def reiniciar_catalogo():
+    """Restablece el catálogo a sus tablas iniciales de prueba."""
+    global catalogo
+    catalogo = {
+        "usuarios": ["id", "nombre", "edad"],
+        "productos": ["id", "nombre", "precio"],
+        "ventas": ["id", "usuario_id", "producto_id", "cantidad", "fecha"],
+    }
+    return "Catálogo de tablas reiniciado correctamente."
 
 if __name__ == "__main__":
     print("\n--- ANALIZADOR SEMANTICO (modo de prueba) ---")

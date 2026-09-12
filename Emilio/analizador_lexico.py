@@ -2,8 +2,6 @@
 import re
 
 
-texto = input("Ingrese su consulta: ").strip()
-
 
 # PALABRAS RESERVADAS DEL LENGUAJE
 
@@ -110,97 +108,62 @@ patron = r"""
 
 
 # BUSCAR LOS TOKENS
-
-tokens = re.findall(
+def analizar_lexico(texto):
+    tokens = re.findall(
     patron,
     texto,
     re.VERBOSE | re.IGNORECASE
 )
 
+    resultado = []
 
-print("\n--- ANALIZADOR LEXICO ---\n")
 
-
-for token in tokens:
+    for token in tokens:
 
     # PALABRAS RESERVADAS
+        if token.upper() in reservadas:
+            resultado.append((token.upper(), "PALABRA RESERVADA"))
 
-    if token.upper() in reservadas:
+        # CADENAS
+        elif re.fullmatch(r"'[^']*'", token):
+            resultado.append((token, "CADENA"))
 
-        print(token.upper(), "-> PALABRA RESERVADA")
+        # DECIMALES
+        elif re.fullmatch(r"\d+\.\d+", token):
+            resultado.append((token, "DECIMAL"))
 
+        # NUMEROS ENTEROS
+        elif re.fullmatch(r"\d+", token):
+            resultado.append((token, "NUMERO"))
 
-    # CADENAS
+        # OPERADORES RELACIONALES
+        elif re.fullmatch(r">=|<=|<>|!=|=|>|<", token):
+            resultado.append((token, "OPERADOR RELACIONAL"))
 
-    elif re.fullmatch(r"'[^']*'", token):
+        # OPERADORES ARITMETICOS
+        elif re.fullmatch(r"\+|\-|\*|/", token):
+            resultado.append((token, "OPERADOR ARITMETICO"))
 
-        print(token, "-> CADENA")
+        # PARENTESIS
+        elif token == "(":
+            resultado.append((token, "PARENTESIS IZQUIERDO"))
 
+        elif token == ")":
+            resultado.append((token, "PARENTESIS DERECHO"))
 
-    # DECIMALES
+        # COMA
+        elif token == ",":
+            resultado.append((token, "COMA"))
 
-    elif re.fullmatch(r"\d+\.\d+", token):
+        # PUNTO Y COMA
+        elif token == ";":
+            resultado.append((token, "FIN DE SENTENCIA"))
 
-        print(token, "-> DECIMAL")
+        # PUNTO
+        elif token == ".":
+            resultado.append((token, "PUNTO"))
 
-
-    # NUMEROS ENTEROS
-
-    elif re.fullmatch(r"\d+", token):
-
-        print(token, "-> NUMERO")
-
-
-    # OPERADORES RELACIONALES
-
-    elif re.fullmatch(r">=|<=|<>|!=|=|>|<", token):
-
-        print(token, "-> OPERADOR RELACIONAL")
-
-
-    # OPERADORES ARITMETICOS
-
-    elif re.fullmatch(r"\+|\-|\*|/", token):
-
-        print(token, "-> OPERADOR ARITMETICO")
-
-
-    # PARENTESIS
-
-    elif token == "(":
-
-        print(token, "-> PARENTESIS IZQUIERDO")
-
-
-    elif token == ")":
-
-        print(token, "-> PARENTESIS DERECHO")
-
-
-    # COMA
-
-    elif token == ",":
-
-        print(token, "-> COMA")
-
-
-    # PUNTO Y COMA
-
-    elif token == ";":
-
-        print(token, "-> FIN DE SENTENCIA")
-
-
-    # PUNTO
-
-    elif token == ".":
-
-        print(token, "-> PUNTO")
-
-
-    # IDENTIFICADORES
-
-    elif re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", token):
-
-        print(token, "-> IDENTIFICADOR")
-
+        # IDENTIFICADORES
+        elif re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", token):
+            resultado.append((token, "IDENTIFICADOR"))
+    return resultado
