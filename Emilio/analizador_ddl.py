@@ -93,16 +93,17 @@ def analizar_ddl(sql):
         return False, "Sentencia DDL no reconocida"
 
 
-# PROGRAMA PRINCIPAL
-print("====================================")
-print("      ANALIZADOR SINTÁCTICO DDL")
-print("====================================")
-
-consulta = input("Ingrese una sentencia SQL: ").strip()
-
-valido, mensaje = analizar_ddl(consulta)
-
-if valido:
-    print("✓", mensaje)
-else:
-    print("✗", mensaje)
+if __name__ == "__main__":
+    # PROGRAMA PRINCIPAL
+    print("====================================")
+    print("      ANALIZADOR SINTÁCTICO DDL")
+    print("====================================")
+    
+    consulta = input("Ingrese una sentencia SQL: ").strip()
+    
+    valido, mensaje = analizar_ddl(consulta)
+    
+    if valido:
+        print("✓", mensaje)
+    else:
+        print("✗", mensaje)
